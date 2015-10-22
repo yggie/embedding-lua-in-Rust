@@ -28,14 +28,19 @@ extern {
     fn lua_settop(state: LuaState, stack_index: c_int);
 }
 
+// these functions are defined as macros in lua.h, therefore not directly
+// accessible by the Rust FFI, aliased here for convenience
+#[inline(always)]
 unsafe fn lua_tostring(state: LuaState, stack_index: c_int) -> *const c_char {
     lua_tolstring(state, stack_index, ptr::null())
 }
 
+#[inline(always)]
 unsafe fn lua_pcall(state: LuaState, num_args: c_int, num_results: c_int, msg_handler: c_int) -> c_int {
     lua_pcallk(state, num_args, num_results, msg_handler, 0, 0)
 }
 
+#[inline(always)]
 unsafe fn lua_pop(state: LuaState, index: c_int) {
     lua_settop(state, -index - 1)
 }
