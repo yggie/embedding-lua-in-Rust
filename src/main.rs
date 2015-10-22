@@ -19,6 +19,9 @@ extern {
     fn luaL_loadstring(state: LuaState, string: *const c_char) -> c_int;
     fn lua_close(state: LuaState);
 
+    fn lua_setglobal(state: LuaState, name: *const c_char);
+
+    fn lua_pushstring(state: LuaState, string: *const c_char) -> *const c_char;
     fn lua_tolstring(state: LuaState, stack_index: c_int, string_length: *const size_t) -> *const c_char;
 
     fn lua_pcallk(state: LuaState, num_args: c_int, num_results: c_int, msg_handler: c_int, context: c_int, k: c_int) -> c_int;
@@ -56,7 +59,10 @@ fn main() {
 
         luaL_openlibs(state);
 
-        if let Ok(_) = handle_error(state, luaL_loadstring(state, CString::new("print(\"Hello World!\")").unwrap().as_ptr())) {
+        lua_pushstring(state, CString::new("World").unwrap().as_ptr());
+        lua_setglobal(state, CString::new("name").unwrap().as_ptr());
+
+        if let Ok(_) = handle_error(state, luaL_loadstring(state, CString::new("print(\"Hello \" .. name .. \"!\")").unwrap().as_ptr())) {
             handle_error(state, lua_pcall(state, 0, 0, 0)).unwrap();
         }
 

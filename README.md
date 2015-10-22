@@ -10,3 +10,7 @@ lazy (like me) and have Homebrew, you can get it with:
 ```
 brew install lua
 ```
+
+## License
+
+This software is distributed under the [MIT](/LICENSE) license.
