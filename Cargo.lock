@@ -2,11 +2,11 @@
 name = "embedding-lua-in-Rust"
 version = "0.1.0"
 dependencies = [
- "libc 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "libc 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "libc"
-version = "0.1.10"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
